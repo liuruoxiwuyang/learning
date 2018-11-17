@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    *{
+        margin:0;
+        padding:0;
+    }
+    ol,ul{
+        list-style: none;
+    }
+    a{
+        text-decoration:none;
+    }
+    #menu .main-menu{
+        width:200px;
+        border: 1px solid #000;
+    }
+    #menu .main-menu h3{
+        height:40px;
+        background: #000;
+        color: white;
+        line-height: 40px;
+        cursor: pointer;
+
+    }
+    #menu .sub-menu{
+        display: none;
+    }
+</style>
+<body>
+    <ul id="menu">
+        <li class="main-menu">
+            <h3>管理区</h3>
+            <ul class="sub-menu">
+                <li><a href="#">001</a></li>
+                <li><a href="#">002</a></li>
+                <li><a href="#">003</a></li>
+            </ul>
+        </li>
+        <li class="main-menu">
+            <h3>交流区</h3>
+            <ul class="sub-menu">
+                <li><a href="#">001</a></li>
+                <li><a href="#">002</a></li>
+                <li><a href="#">003</a></li>
+            </ul>
+        </li>
+    </ul>
+    <script>
+        var oMenu = document.getElementById('menu');
+        var oH3 = oMenu.getElementsByTagName('h3');
+        var oSubMenu = oMenu.getElementsByTagName('ul');
+        for(i=0;i<oH3.length;i++){
+            oH3[i].flag = false;
+            oH3[i].index = i;
+            oH3[i].onclick = function(){
+                if(!this.flag){
+                    next(this).style.display = "block";
+                   // oSubMenu[this.index].style.display='block';
+                }else{
+                    next(this).style.display = "none";
+                  //  oSubMenu[this.index].style.display='none';
+                }
+                this.flag = !this.flag;
+            }
+        }
+        function next(elem){
+            do{
+                elem = elem.nextSibling
+            }while(elem && elem.nodeType != 1);
+            return elem;
+        }
+    </script>
+</body>
+</html>
