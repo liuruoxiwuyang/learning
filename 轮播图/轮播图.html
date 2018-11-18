@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    *{
+        margin:0;
+        padding:0;
+    }
+    ol,ul{
+        list-style: none;
+    }
+    a{
+        text-decoration: none;
+    }
+    #container{
+        width:680px;
+        height:344px;
+        margin:100px auto;
+        overflow: hidden;
+        position:relative;
+    }
+    #tab{
+        position:absolute;
+        bottom:10px;
+        right:10px;
+    }
+    #tab li{
+        float: left;
+        width:20px;
+        height:20px;
+        background: #000;
+        color: white;
+        text-align: center;
+        line-height: 20px;
+        margin-right: 5px;
+    }
+    #arrow{
+        position:absolute;
+        left:10px;
+        bottom:10px;
+    }
+    #arrow span{
+        float: left;
+        width:20px;
+        height:20px;
+        background: #000;
+        color:white;
+        text-align: center;
+        line-height:15px;
+        margin-right:5px;
+    }
+    #tab .seleted{
+        background: orange;
+    }
+    #content img{
+        display:none;
+    }
+    #content .seleted{
+        display:block;
+    }
+</style>
+<body>
+    <div id="container">
+        <ul id="tab">
+            <li class="seleted">1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+        </ul>
+        <div id="content">
+            <img class="seleted" src="img/1.jpg" alt="">
+            <img src="img/2.jpg" alt="">
+            <img src="img/3.jpg" alt="">
+            <img src="img/4.jpg" alt="">
+        </div>
+        <div id="arrow">
+            <span id="pre">&lt</span>
+            <span id="next">&gt</span>
+        </div>
+    </div>
+    <script>
+        var oContainer = document.getElementById('container');
+        var oContent = document.getElementById('content');
+        var oImg = oContent.getElementsByTagName('img');
+        var oTab = document.getElementById('tab');
+        var oTabLi = oTab.getElementsByTagName('li');
+        var oNext = document.getElementById('next');
+        var oPre = document.getElementById('pre');
+        var iNow = 0 ; 
+        for(i=0;i<oTabLi.length;i++){
+            oTabLi[i].index = i;
+            oTabLi[i].onmouseover = function(){
+                changeImg(this.index);
+            }
+        }
+        oNext.onclick = function(){
+            iNow = (iNow+1)%oTabLi.length;
+            changeImg(iNow);
+        };
+        oPre.onclick = function(){
+            if(iNow == 0){
+                iNow = 3
+            }else{
+                iNow = iNow-1;
+            }
+            changeImg(iNow);
+        }
+        function changeImg(index){
+            for(i=0;i<oTabLi.length;i++){
+                oTabLi[i].className = '';
+                oImg[i].style.display = 'none';
+            }
+            oImg[index].style.display = 'block';
+            oTabLi[index].className = 'seleted';
+            iNow = index;
+        }
+        var timer;
+        function run(){
+            timer = setInterval(function(){
+            oNext.onclick();
+            },2000);
+        };
+        run();
+        oContainer.onmouseover = function(){
+            clearInterval(timer);
+        }
+        oContainer.onmouseout = function(){
+           run();
+       }
+       // 定时器；封装函数；定位
+    </script>
+</body>
+</html>
