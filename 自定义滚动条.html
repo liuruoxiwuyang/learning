@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #container{
+            width:300px;
+            height: 200px;
+            background:rgb(199, 197, 197);
+            position: relative;
+            margin: 100px auto;
+            overflow: hidden;
+        }
+        #content{
+            position: absolute;
+            width:280px;
+            word-wrap: break-word;
+            top:0;
+            left:0;
+        }
+
+        #scroll-bar{
+            position: absolute;
+            top:0;
+            right:0;
+            width: 20px;
+            height: 200px;
+            background: rgb(247, 209, 209);
+
+        }
+        #scroll-btn{
+            position: absolute;
+            top:0;
+            left:0;
+            width:20px;
+            height: 20px;
+            background: rgb(141, 235, 238);
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="content">
+                fdasfasfdfeafsadfarfdxfewafsdafartgfgaregargdfaheaygetertdasfe4f相当于这个任务会跳出当前队伍列，等到其他任务执行完再执行这个任务。所以还是231。相当于这个任务会跳出当前队伍列，等到其他任务执行完再执行这个任务。所以还是231。相当于这个任务会跳出当前队伍列，等到其他任务执行完再执行这个任务。所以还是231。相当于这个任务会跳出当前队伍列，等到其他任务执行完再执行这个任务。所以还是231。相当于这个任务会跳出当前队伍列，等到其他任务执行完再执行这个任务。所以还是231。相当于这个任务会跳出当前队伍列，等到其他任务执行完再执行这个任务。所以还是231。相当于这个任务会跳出当前队伍列，等到其他任务执行完再执行这个任务。所以还是231。相当于这个任务会跳出当前队伍列，等到其他任务执行完再执行这个任务。所以还是231。相当于这个任务会跳出当前队伍列，等到其他任务执行完再执行这个任务。所以还是231。
+        </div>
+        <div id="scroll-bar">
+            <span id="scroll-btn"></span>
+        </div>
+    </div>
+    <script>
+        var oContainer = document.getElementById('container');
+        var oContent = document.getElementById('content');
+        var oScrollBar = document.getElementById('scroll-bar');
+        var oScrollBtn = document.getElementById('scroll-btn');
+        oScrollBtn.onmousedown = function(e){
+            e = e|| window.event;
+            var iDisY = e.clientY-oContainer.offsetTop-oScrollBar.offsetTop;
+            document.onmousemove = function(e){
+                e = e || window.event;
+                var iTop;
+                iTop = e.clientY - oContainer.offsetTop - iDisY;
+                if(iTop<=0){
+                    iTop = 0;
+                };
+                if(iTop>= oScrollBar.offsetHeight - oScrollBtn.offsetHeight){
+                    iTop = oScrollBar.offsetHeight - oScrollBtn.offsetHeight;
+                }
+                console.log(iTop)
+                oScrollBtn.style.top = iTop + 'px';
+                var scale = iTop/(oScrollBar.offsetHeight - oScrollBtn.offsetHeight);
+                oContent.style.top = -(oContent.offsetHeight-oContainer.offsetHeight)*scale + 'px';
+                return false;
+            }
+            document.onmouseup = function(){
+                document.onmousemove = null;
+                document.onmouseup = null;
+            }
+        }
+    </script>
+</body>
+</html>
