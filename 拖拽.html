@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    #div1{
+        position: absolute;
+        width:200px;
+        height:200px;
+        background:red;
+    }
+</style>
+<body>
+    <div id="div1"></div>
+    <script>
+        var oDiv1 = document.getElementById('div1');
+        var iDisX = iDisY = 0 ;
+
+        oDiv1.onmousedown = function(e){
+            e = e||window.event; //能力检测
+            iDisX = e.clientX - oDiv1.offsetLeft;
+            iDisY = e.clientY - oDiv1.offsetTop;
+            //如果给ODiv加，oDiv1.onmousemove,会出现鼠标移动太快，计算速度赶不上，鼠标瞬间拖离div块的现象
+            document.onmousemove = function(e){
+                e = e||window.event;
+                var iLeft =  e.clientX - iDisX;
+                var iTop = e.clientY - iDisY;
+                if(iLeft<=10){
+                    iLeft = 0;
+                }
+                //document.documentElement.clientWidth获取浏览器宽度
+                if(iLeft >= document.documentElement.clientWidth-oDiv1.offsetWidth){
+                    iLeft =document.documentElement.clientWidth- oDiv1.offsetWidth;
+                }
+                if(iTop<=0){
+                    iTop = 0;
+                }
+                if(iTop>=document.documentElement.clientHeight-oDiv1.offsetHeight){
+                    iTop=document.documentElement.clientHeight-oDiv1.offsetHeight;
+                }
+
+                oDiv1.style.left = iLeft + 'px';
+                oDiv1.style.top = iTop + 'px';
+                //组织默认行为：（例如推拽时把div后文字选中）
+                e.preventDefault(); //标准
+                e.returnValue = false; //ie
+                return false; //都好使
+
+            };
+            document.onmouseup = function(){
+                document.onmousemove = null;
+                document.onmouseup = null;
+
+            }   
+        };
+        
+    </script>
+</body>
+</html>
