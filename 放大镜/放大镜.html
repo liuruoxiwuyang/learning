@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    *{
+        margin:0;
+        padding:0;
+    }
+    #small-box{
+        position: relative;
+        width:400px;
+        height:400px;
+        border: 1px solid #000;
+    }
+    #float{
+        position: absolute;
+        left: 0;
+        top:0;
+        background: #cccc;
+        width:100px;
+        height:100px;
+        opacity: 0.5;
+        filter:alpha(opacity=50);
+        display:none;
+    }
+    #big-box{
+        position: absolute;
+        width:500px;
+        height: 500px;
+        overflow: hidden;
+        left:410px;
+        top:0;
+    }
+    #big-pic{
+        position: absolute;
+        top: 0;
+        left: 0;
+        display:none;
+    }
+    #mask{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width:200px;
+        height:200px;
+        background: #000;
+        opacity:0;
+        filter:alpha(opacity=0);
+    }
+</style>
+<body>
+    <div id="small-box">
+        <img id="small-pic" src="1.jpg" alt="">
+        <div id="float"></div>
+        <div id="mask"></div>
+    </div>
+    <div id="big-box"><img id="big-pic" src="2.jpg" alt=""></div>
+    <script>
+        var oSmallBox = document.getElementById('small-box');
+        var oSmallPic = document.getElementById('small-pic');
+        var oBigBox = document.getElementById('big-box');
+        var oBigPic = document.getElementById('big-pic');
+        var oFloat = document.getElementById('float');
+        oSmallBox.onmouseover = function(e){
+            oFloat.style.display = 'block';
+            oBigPic.style.display = 'block';
+     
+        };
+        oSmallBox.onmousemove = function(e){
+            e = e || window.event;
+            var iLeft = e.clientX - oFloat.offsetWidth/2 ;
+            var iTop = e.clientY - oFloat.offsetHeight/2;
+            if(iTop<=0){
+                iTop = 0;
+            }
+            if(iTop>=oSmallBox.offsetHeight - oFloat.offsetHeight){
+                iTop=oSmallBox.offsetHeight - oFloat.offsetHeight;
+            } 
+            if(iLeft<=0){
+                iLeft = 0;
+            }
+            if(iLeft>=oSmallBox.offsetWidth - oFloat.offsetWidth){
+                iLeft=oSmallBox.offsetWidth - oFloat.offsetWidth;
+            }
+            oFloat.style.left = iLeft + 'px';
+            oFloat.style.top = iTop + 'px';
+            var fscaleX = iLeft / (oSmallBox.offsetWidth-oFloat.offsetWidth);
+            var fscaleY = iTop / (oSmallBox.offsetHeight-oFloat.offsetHeight);
+            oBigPic.style.left = -(oBigPic.offsetWidth-oBigBox.offsetWidth)*fscaleX + 'px';
+            oBigPic.style.top = -(oBigPic.offsetHeight-oBigBox.offsetHeight)*fscaleY + 'px';
+
+        }
+        oSmallBox.onmouseout = function(){
+            oFloat.style.display = 'none';
+            oBigBox.style.display = 'none';
+        };
+    </script>
+</body>
+</html>
