@@ -1,0 +1,8 @@
+<script>
+    function recurrence(num){
+        if(num==1){
+            return 1;
+        }
+        return num*recurrence(num-1);// num*arguments.callee(num-1)
+    }
+</script>
