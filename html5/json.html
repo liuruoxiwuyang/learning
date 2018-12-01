@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- json: javascript object notation(标记) 
+    用于在前后台传输数据
+    解决兼容性问题： www.json.org下载json2.js
+    -->
+    <script>
+        var person = {
+        name: 'zhans',
+        age: 20,
+        father:{
+            name: 'zhansss',
+            age: 250,
+            }
+        }
+        console.log(person);
+        var str = JSON.stringify(person); //将对象转为字符串
+        console.log( str);
+        console.log(typeof JSON.parse( str)); //将字符串解析为对象
+
+        //深度拷贝
+        //1、
+        function clone(obj){
+            var newObj ={};
+            for(var p in obj ){
+                if(typeof obj[p] == 'object'){
+                    newObj[p]=clone(obj[p]);
+                }else{
+                    newObj[p] = obj[p];
+                }
+            }
+            return newObj;
+        }
+        //2、merge 2 to 1
+        $.extend(obj1,obj2);
+        //3、JSON
+        var str1 = JSON.stringify(obj1);
+        var obj2 = JSON.parse(str1);
+    </script>
+</body>
+</html>
