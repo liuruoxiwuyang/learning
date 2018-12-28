@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div{
+            border:1px solid black;
+            width:200px;
+            height:200px;
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+    <script>
+        var obj = {
+            abc: "12",
+        }
+        var odiv = document.getElementsByTagName('div');
+        odiv[0].addEventListener('click',function(){
+            console.log(this)
+        }.bind(obj))
+      function fn(idx,idx2){
+          console.log(this);
+          console.log(idx+"  "+idx2)
+      };
+      //改变this指向
+      fn.call(obj,"idx","idx2"); 
+      fn.apply(obj,['idx','idx2']);
+      fn.bind(obj,'idx','idx2'); //只绑定不调用
+      fn.bind(obj,'idx','idx2')();
+      
+    </script>
+</body>
+</html>
