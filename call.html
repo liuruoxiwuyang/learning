@@ -20,6 +20,10 @@
             abc: "12",
         }
         var odiv = document.getElementsByTagName('div');
+        console.log(odiv[0].style.width);
+        console.log(getComputedStyle(odiv[0],null).width);
+
+
         odiv[0].addEventListener('click',function(){
             console.log(this)
         }.bind(obj))
